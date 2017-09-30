@@ -1,0 +1,198 @@
+{
+  "Blueprints": {
+    "blueprint_name": "ha-hdfs",
+    "stack_name": "HDP",
+    "stack_version": "2.5"
+  },
+  "host_groups": [
+    {
+      "name": "master_1",
+      "cardinality": "1",
+      "components": [
+        {
+          "name": "HISTORYSERVER"
+        },
+        {
+          "name": "JOURNALNODE"
+        },
+        {
+          "name": "NAMENODE"
+        },
+        {
+          "name": "ZKFC"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name": "METRICS_MONITOR"
+        },
+        {
+          "name": "TEZ_CLIENT"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name": "ZOOKEEPER_SERVER"
+        }
+      ]
+    },
+    {
+      "name": "master_2",
+      "cardinality": "1",
+      "components": [
+        {
+          "name": "APP_TIMELINE_SERVER"
+        },
+        {
+          "name": "METRICS_COLLECTOR"
+        },
+        {
+          "name": "METRICS_GRAFANA"
+        },
+        {
+          "name": "METRICS_MONITOR"
+        },
+        {
+          "name": "RESOURCEMANAGER"
+        },
+        {
+          "name": "JOURNALNODE"
+        },
+        {
+          "name": "NAMENODE"
+        },
+        {
+          "name": "ZKFC"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name": "TEZ_CLIENT"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name": "ZOOKEEPER_SERVER"
+        }
+      ]
+    },
+    {
+      "name": "slave_1",
+      "cardinality": "1",
+      "components": [
+        {
+          "name": "DATANODE"
+        },
+        {
+          "name": "NODEMANAGER"
+        },
+        {
+          "name": "ZOOKEEPER_SERVER"
+        },
+        {
+          "name": "JOURNALNODE"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "TEZ_CLIENT"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name": "METRICS_MONITOR"
+        },
+        {
+          "name": "SQOOP"
+        },
+        {
+          "name": "ZOOKEEPER_CLIENT"
+        }
+      ]
+    },
+    {
+      "name": "slaves",
+      "components": [
+        {
+          "name": "DATANODE"
+        },
+        {
+          "name": "NODEMANAGER"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "TEZ_CLIENT"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name": "METRICS_MONITOR"
+        },
+        {
+          "name": "SQOOP"
+        },
+        {
+          "name": "ZOOKEEPER_CLIENT"
+        }
+      ],
+      "cardinality": "1+"
+    }
+  ],
+  "configurations": [
+    {
+      "core-site": {
+        "properties": {
+          "fs.defaultFS": "hdfs://nmcluster",
+          "ha.zookeeper.quorum": "%HOSTGROUP::master_1%:2181,%HOSTGROUP::master_2%:2181,%HOSTGROUP::slave_1%:2181"
+        }
+      }
+    },
+    {
+      "hdfs-site": {
+        "properties": {
+          "dfs.client.failover.proxy.provider.nmcluster": "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider",
+          "dfs.ha.automatic-failover.enabled": "true",
+          "dfs.ha.fencing.methods": "shell(/bin/true)",
+          "dfs.ha.namenodes.nmcluster": "nn1,nn2",
+          "dfs.namenode.http-address": "%HOSTGROUP::master_1%:50070",
+          "dfs.namenode.http-address.nmcluster.nn1": "%HOSTGROUP::master_1%:50070",
+          "dfs.namenode.http-address.nmcluster.nn2": "%HOSTGROUP::master_2%:50070",
+          "dfs.namenode.https-address": "%HOSTGROUP::master_1%:50470",
+          "dfs.namenode.https-address.nmcluster.nn1": "%HOSTGROUP::master_1%:50470",
+          "dfs.namenode.https-address.nmcluster.nn2": "%HOSTGROUP::master_2%:50470",
+          "dfs.namenode.rpc-address.nmcluster.nn1": "%HOSTGROUP::master_1%:8020",
+          "dfs.namenode.rpc-address.nmcluster.nn2": "%HOSTGROUP::master_2%:8020",
+          "dfs.namenode.shared.edits.dir": "qjournal://%HOSTGROUP::master_1%:8485;%HOSTGROUP::slave_1%:8485;%HOSTGROUP::master_2%:8485/nmcluster",
+          "dfs.nameservices": "nmcluster"
+        }
+      }
+    }
+  ]
+}

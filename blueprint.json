@@ -1,0 +1,56 @@
+{
+    "configurations" : [
+    ],
+    "host_groups" : [
+        {
+            "name" : "netmagic_group_1",
+            "components" : [
+                {
+                    "name" : "HISTORYSERVER"
+                },
+                {
+                    "name" : "NAMENODE"
+                },
+                {
+                    "name" : "APP_TIMELINE_SERVER"
+                },
+                {
+                    "name" : "HDFS_CLIENT"
+                },
+                {
+                    "name" : "NODEMANAGER"
+                },
+                {
+                    "name" : "DATANODE"
+                },
+                {
+                    "name" : "RESOURCEMANAGER"
+                },
+                {
+                    "name" : "ZOOKEEPER_SERVER"
+                },
+                {
+                    "name" : "ZOOKEEPER_CLIENT"
+                },
+                {
+                    "name" : "SECONDARY_NAMENODE"
+                },
+                {
+                    "name" : "TEZ_CLIENT"
+                },
+                {
+                    "name" : "YARN_CLIENT"
+                },
+                {
+                    "name" : "MAPREDUCE2_CLIENT"
+                }
+            ],
+            "cardinality" : "1"
+        }
+    ],
+    "Blueprints" : {
+        "blueprint_name" : "single-node",
+        "stack_name" : "HDP",
+        "stack_version" : "2.5"
+    }
+}
