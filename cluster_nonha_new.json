@@ -1,0 +1,33 @@
+{
+  "blueprint": "blueprintd614c0c2-827e-4dd9-aa08-0eb645017d29",
+  "default_password": "admin",
+  "host_groups": [
+    {
+      "hosts": [
+        {
+          "fqdn": "hdphost2.xyzabc.com",
+          "ip": "<IPAdress>"
+        }
+      ],
+      "name": "master"
+    },
+    {
+      "hosts": [
+        {
+          "fqdn": "hdphost3.xyzabc.com",
+          "ip": "<IPAdress>"
+        }
+      ],
+      "name": "slave_1"
+    },
+    {
+      "hosts": [
+        {
+          "fqdn": "hdphost4.xyzabc.com",
+          "ip": "<IPAdress>"
+        }
+      ],
+      "name": "slaves"
+    }
+  ]
+}

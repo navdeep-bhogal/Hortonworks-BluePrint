@@ -1,0 +1,42 @@
+{
+  "blueprint": "ha-hdfs",
+  "default_password": "admin",
+  "host_groups": [
+    {
+      "hosts": [
+        {
+          "fqdn": "nn1.xyzabc.com",
+          "ip": "<IPAddress>"
+        }
+      ],
+      "name": "master_1"
+    },
+    {
+      "hosts": [
+        {
+          "fqdn": "nn2.xyzabc.com",
+          "ip": "<IPAddress>"
+        }
+      ],
+      "name": "master_2"
+    },
+    {
+      "hosts": [
+        {
+          "fqdn": "dn1.xyzabc.com",
+          "ip": "<IPAddress>"
+        }
+      ],
+      "name": "slave_1"
+    },
+    {
+      "hosts": [
+        {
+          "fqdn": "dn2.xyzabc.com",
+          "ip": "<IPAddress>"
+        }
+      ],
+      "name": "slaves"
+    }
+  ]
+}
